@@ -1,10 +1,11 @@
-import firebase from "./services/firebaseConnection";
+import { BrowserRouter } from "react-router-dom";
+import Rotas from "./routes";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Sistema com Login</h1>
-    </div>
+    <BrowserRouter>
+      <Rotas />
+    </BrowserRouter>
   );
 }
 

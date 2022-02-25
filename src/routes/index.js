@@ -2,6 +2,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Dashboard from "../pages/Dashboard";
+import { AuthContext } from "../contexts/auth";
+import { useContext } from "react";
 
 export default function Rotas() {
   return (
@@ -33,9 +35,8 @@ export default function Rotas() {
     </Routes>
   );
 }
-const loading = false;
-const signed = false;
 function Logado({ children }) {
+  const { signed, loading } = useContext(AuthContext);
   if (loading) {
     return <div></div>;
   }
@@ -47,6 +48,7 @@ function Logado({ children }) {
   }
 }
 function NaoLogado({ children }) {
+  const { signed, loading } = useContext(AuthContext);
   if (loading) {
     return <div></div>;
   }

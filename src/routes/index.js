@@ -5,6 +5,7 @@ import Dashboard from "../pages/Dashboard";
 import { AuthContext } from "../contexts/auth";
 import { useContext } from "react";
 import Profile from "../pages/Perfil";
+import Customers from "../pages/Customers";
 
 export default function Rotas() {
   return (
@@ -38,6 +39,14 @@ export default function Rotas() {
         element={
           <Logado>
             <Profile />
+          </Logado>
+        }
+      />
+      <Route
+        path="/clientes"
+        element={
+          <Logado>
+            <Customers />
           </Logado>
         }
       />

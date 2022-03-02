@@ -9,7 +9,6 @@ function Dashboard() {
     <div>
       <Header />
       <h1>Página do Dashboard</h1>
-      <button onClick={() => signOut()}>Fazer logout</button>
     </div>
   );
 }

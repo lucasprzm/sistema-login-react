@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import firebase from "../../services/firebaseConnection";
 import { format } from "date-fns";
+import Modal from "../../components/Modal";
 
 const listRef = firebase
   .firestore()
@@ -18,25 +19,27 @@ function Dashboard() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [lastDocs, setLastDocs] = useState();
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [detail, setDetail] = useState();
 
   useEffect(() => {
+    async function loadChamados() {
+      await listRef
+        .limit(5)
+        .get()
+        .then((snapshot) => {
+          updateState(snapshot);
+        })
+        .catch((error) => {
+          console.log("Deu algum erro:", error);
+          setLoadingMore(false);
+        });
+      setLoading(false);
+    }
     loadChamados();
     return () => {};
   }, []);
 
-  async function loadChamados() {
-    await listRef
-      .limit(5)
-      .get()
-      .then((snapshot) => {
-        updateState(snapshot);
-      })
-      .catch((error) => {
-        console.log("Deu algum erro:", error);
-        setLoadingMore(false);
-      });
-    setLoading(false);
-  }
   async function updateState(snapshot) {
     const isCollectionEmpty = snapshot.size === 0;
     if (!isCollectionEmpty) {
@@ -70,6 +73,10 @@ function Dashboard() {
       .then((snapshot) => {
         updateState(snapshot);
       });
+  }
+  function togglePostModal(item) {
+    setShowPostModal(!showPostModal);
+    setDetail(item);
   }
   if (loading) {
     return (
@@ -141,7 +148,11 @@ function Dashboard() {
                           className="action"
                           style={{ backgroundColor: "#3583f6" }}
                         >
-                          <FiSearch color="#fff" size={17} />
+                          <FiSearch
+                            color="#fff"
+                            size={17}
+                            onClick={() => togglePostModal(item)}
+                          />
                         </button>
                         <button
                           className="action"
@@ -168,6 +179,7 @@ function Dashboard() {
           </>
         )}
       </div>
+      {showPostModal && <Modal conteudo={detail} close={togglePostModal} />}
     </div>
   );
 }

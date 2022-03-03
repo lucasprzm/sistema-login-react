@@ -59,6 +59,14 @@ export default function Rotas() {
           </Logado>
         }
       />
+      <Route
+        path="/new/:id"
+        element={
+          <Logado>
+            <New />
+          </Logado>
+        }
+      />
     </Routes>
   );
 }

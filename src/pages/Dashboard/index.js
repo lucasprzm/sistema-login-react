@@ -154,12 +154,13 @@ function Dashboard() {
                             onClick={() => togglePostModal(item)}
                           />
                         </button>
-                        <button
+                        <Link
                           className="action"
                           style={{ backgroundColor: "#F6A935" }}
+                          to={`/new/${item.id}`}
                         >
                           <FiEdit2 color="#fff" size={17} />
-                        </button>
+                        </Link>
                       </td>
                     </tr>
                   );
